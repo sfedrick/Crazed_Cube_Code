@@ -1,15 +1,13 @@
 #include <Arduino.h>
 #include "useful_funcs.h"
 
-void get_keyboard_input(int &idx,char *angle_str, bool &ready){
-    
-
+void get_keyboard_input(int &idx,char *char_array, bool &ready){
     if (Serial.available() > 0) {
-    angle_str[idx] = Serial.read();
-    if (angle_str[idx] == LF) {
-        Serial.print("Received new angle: ");
-        angle_str[idx-1] = 0;
-        Serial.println(angle_str);
+    char_array[idx] = Serial.read();
+    if (char_array[idx] == LF) {
+        // Serial.print("Received new angle: ");
+        char_array[idx-1] = 0;
+        // Serial.println(char_array);
         ready = true;
         idx = -1;
         }
@@ -20,4 +18,10 @@ void get_keyboard_input(int &idx,char *angle_str, bool &ready){
     idx++;
     }
 
+}
+
+void char2int(int num,char *char_array, int *int_array){
+    for( int i=0; i<num; i++){
+        int_array[i] = int(char_array[i] -  '0');
+    }
 }

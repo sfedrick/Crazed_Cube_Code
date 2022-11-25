@@ -2,6 +2,7 @@
 #include <Servo.h> 
 #include "useful_funcs.h"
 char angle_str[10];
+int angle_int[10];
 int idx=0;
 bool ready = false;
 
@@ -19,19 +20,12 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  // if(get_keyboard_input(idx,angle_str)){
-  //   Serial.println(angle_str);
-  // }
-  // if (get_keyboard_input(idx,angle_str)){
-  //   Serial.print("outside the function: ");
-  //   Serial.println(angle_str);
-  // }
-
   get_keyboard_input(idx,angle_str,ready);
   if(ready){
     Serial.println("outside function");
     Serial.println(angle_str);
+    char2int(2,angle_str, angle_int);
+   
     delay(1000);
   }
     
