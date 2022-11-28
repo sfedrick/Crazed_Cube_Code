@@ -32,13 +32,16 @@ void set_holonomic_direction(int *wheel_speeds,int y, int x ,int cw) {
 
 }
 
+
 int parralax_servo_conv(int wheelspeed){
+  // hard ware compensation wheels spin in opposite direction if on the right side
+
   if(wheelspeed > 0){
-    return map(wheelspeed,0,100,100,180);
+    return map(wheelspeed,0,100,90,160);
   }
   else if( wheelspeed < 0){
     wheelspeed = wheelspeed*-1;
-    return map(wheelspeed,0,100,100,180);
+    return map(wheelspeed,0,100,0,80);
   }
   else{
     return 0;
@@ -48,8 +51,13 @@ int parralax_servo_conv(int wheelspeed){
 
 void holonomic_parralax_move(int *wheel_speeds, Servo *wheel_servos,int velocity){
   // i<4 for four wheels
+  int ws;
   for (int i=0; i < 4 ; i++){
-    int ws = wheel_speeds[i]*velocity;
+   
+    ws = wheel_speeds[i]*velocity;
+    if((i+1)%2==0){
+      ws = ws*-1;
+    }
     ws = parralax_servo_conv(ws);
     wheel_servos[i].write(ws);
   }
