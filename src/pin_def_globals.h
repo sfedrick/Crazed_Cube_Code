@@ -19,4 +19,9 @@
     int wheel_speeds[4]; // [front left, front right, rear left, rear right] 
     Servo wheel_servos[4]; // [front left, front right, rear left, rear right] 
 
+    // current direction of robot
+    int y;
+    int x;
+    int cw;
+
 #endif
